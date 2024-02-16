@@ -8,7 +8,6 @@ import com.opencsv.exceptions.CsvException;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, CsvException {
         initSetup(args);
-        Wizard.run(args);
         downLoadCsvFile();
         createBasicCardsFromCsv();
         downloadJsonFiles();
@@ -18,10 +17,14 @@ public class Main {
         keepConsoleOpen();
     }
 
-    private static void initSetup(String[] args) {
+    private static void initSetup(String[] args) throws IOException, InterruptedException {
         Config.getInstance().useDefaultTmpFolder();
-        Config.getInstance().setArgs(args);
         Util.createProjectFolders();
+        if(args.length > 0){
+            Config.getInstance().setArgs(args);
+        } else {
+            Wizard.run(args);
+        }
     }
 
     private static void downLoadCsvFile() throws InterruptedException, IOException, CsvException {
