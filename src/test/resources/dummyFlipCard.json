@@ -1,0 +1,186 @@
+{
+    "object": "card",
+    "id": "02d6d693-f1f3-4317-bcc0-c21fa8490d38",
+    "oracle_id": "594f6881-c059-46f8-aa4e-7151d502de73",
+    "multiverse_ids": [
+      398434,
+      398435
+    ],
+    "mtgo_id": 57880,
+    "mtgo_foil_id": 57881,
+    "tcgplayer_id": 100191,
+    "cardmarket_id": 283370,
+    "name": "Jace, Vryn's Prodigy // Jace, Telepath Unbound",
+    "lang": "en",
+    "released_at": "2015-07-17",
+    "uri": "https://api.scryfall.com/cards/02d6d693-f1f3-4317-bcc0-c21fa8490d38",
+    "scryfall_uri": "https://scryfall.com/card/ori/60/jace-vryns-prodigy-jace-telepath-unbound?utm_source=api",
+    "layout": "transform",
+    "highres_image": true,
+    "image_status": "highres_scan",
+    "cmc": 2,
+    "type_line": "Legendary Creature — Human Wizard // Legendary Planeswalker — Jace",
+    "color_identity": [
+      "U"
+    ],
+    "keywords": [
+      "Transform",
+      "Mill"
+    ],
+    "card_faces": [
+      {
+        "object": "card_face",
+        "name": "Jace, Vryn's Prodigy",
+        "mana_cost": "{1}{U}",
+        "type_line": "Legendary Creature — Human Wizard",
+        "oracle_text": "{T}: Draw a card, then discard a card. If there are five or more cards in your graveyard, exile Jace, Vryn's Prodigy, then return him to the battlefield transformed under his owner's control.",
+        "colors": [
+          "U"
+        ],
+        "power": "0",
+        "toughness": "2",
+        "flavor_text": "\"People's thoughts just come to me. Sometimes I don't know if it's them or me thinking.\"",
+        "artist": "Jaime Jones",
+        "artist_id": "92f6c2c1-fa57-4b52-99c4-0fd866c13dc9",
+        "illustration_id": "ea8de167-ee93-4282-95b4-d82291dbfe1f",
+        "image_uris": {
+          "small": "https://cards.scryfall.io/small/front/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "normal": "https://cards.scryfall.io/normal/front/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "large": "https://cards.scryfall.io/large/front/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "png": "https://cards.scryfall.io/png/front/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.png?1651492800",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "border_crop": "https://cards.scryfall.io/border_crop/front/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800"
+        }
+      },
+      {
+        "object": "card_face",
+        "name": "Jace, Telepath Unbound",
+        "flavor_name": "",
+        "mana_cost": "",
+        "type_line": "Legendary Planeswalker — Jace",
+        "oracle_text": "+1: Up to one target creature gets -2/-0 until your next turn.\n−3: You may cast target instant or sorcery card from your graveyard this turn. If that spell would be put into your graveyard, exile it instead.\n−9: You get an emblem with \"Whenever you cast a spell, target opponent mills five cards.\"",
+        "colors": [
+          "U"
+        ],
+        "color_indicator": [
+          "U"
+        ],
+        "loyalty": "5",
+        "artist": "Jaime Jones",
+        "artist_id": "92f6c2c1-fa57-4b52-99c4-0fd866c13dc9",
+        "illustration_id": "8ce7af86-2a0b-426b-8f7b-a49d6c956141",
+        "image_uris": {
+          "small": "https://cards.scryfall.io/small/back/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "normal": "https://cards.scryfall.io/normal/back/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "large": "https://cards.scryfall.io/large/back/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "png": "https://cards.scryfall.io/png/back/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.png?1651492800",
+          "art_crop": "https://cards.scryfall.io/art_crop/back/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800",
+          "border_crop": "https://cards.scryfall.io/border_crop/back/0/2/02d6d693-f1f3-4317-bcc0-c21fa8490d38.jpg?1651492800"
+        }
+      }
+    ],
+    "all_parts": [
+      {
+        "object": "related_card",
+        "id": "02d6d693-f1f3-4317-bcc0-c21fa8490d38",
+        "component": "combo_piece",
+        "name": "Jace, Vryn's Prodigy // Jace, Telepath Unbound",
+        "type_line": "Legendary Creature — Human Wizard // Legendary Planeswalker — Jace",
+        "uri": "https://api.scryfall.com/cards/02d6d693-f1f3-4317-bcc0-c21fa8490d38"
+      },
+      {
+        "object": "related_card",
+        "id": "458e37b1-a849-41ae-b63c-3e09ffd814e4",
+        "component": "combo_piece",
+        "name": "Jace, Telepath Unbound Emblem",
+        "type_line": "Emblem — Jace",
+        "uri": "https://api.scryfall.com/cards/458e37b1-a849-41ae-b63c-3e09ffd814e4"
+      }
+    ],
+    "legalities": {
+      "standard": "not_legal",
+      "future": "not_legal",
+      "historic": "not_legal",
+      "timeless": "not_legal",
+      "gladiator": "not_legal",
+      "pioneer": "legal",
+      "explorer": "not_legal",
+      "modern": "legal",
+      "legacy": "legal",
+      "pauper": "not_legal",
+      "vintage": "legal",
+      "penny": "not_legal",
+      "commander": "legal",
+      "oathbreaker": "legal",
+      "standardbrawl": "not_legal",
+      "brawl": "not_legal",
+      "alchemy": "not_legal",
+      "paupercommander": "not_legal",
+      "duel": "legal",
+      "oldschool": "not_legal",
+      "premodern": "not_legal",
+      "predh": "not_legal"
+    },
+    "games": [
+      "paper",
+      "mtgo"
+    ],
+    "reserved": false,
+    "foil": true,
+    "nonfoil": true,
+    "finishes": [
+      "nonfoil",
+      "foil"
+    ],
+    "oversized": false,
+    "promo": false,
+    "reprint": false,
+    "variation": false,
+    "set_id": "0eeb9a9a-20ac-404d-b55f-aeb7a43a7f62",
+    "set": "ori",
+    "set_name": "Magic Origins",
+    "set_type": "core",
+    "set_uri": "https://api.scryfall.com/sets/0eeb9a9a-20ac-404d-b55f-aeb7a43a7f62",
+    "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aori&unique=prints",
+    "scryfall_set_uri": "https://scryfall.com/sets/ori?utm_source=api",
+    "rulings_uri": "https://api.scryfall.com/cards/02d6d693-f1f3-4317-bcc0-c21fa8490d38/rulings",
+    "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A594f6881-c059-46f8-aa4e-7151d502de73&unique=prints",
+    "collector_number": "60",
+    "digital": false,
+    "rarity": "mythic",
+    "artist": "Jaime Jones",
+    "artist_ids": [
+      "92f6c2c1-fa57-4b52-99c4-0fd866c13dc9"
+    ],
+    "border_color": "black",
+    "frame": "2015",
+    "frame_effects": [
+      "originpwdfc"
+    ],
+    "security_stamp": "oval",
+    "full_art": false,
+    "textless": false,
+    "booster": true,
+    "story_spotlight": false,
+    "edhrec_rank": 4643,
+    "prices": {
+      "usd": "4.46",
+      "usd_foil": "15.89",
+      "usd_etched": null,
+      "eur": "5.48",
+      "eur_foil": "25.56",
+      "tix": "0.28"
+    },
+    "related_uris": {
+      "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=398434&printed=false",
+      "tcgplayer_infinite_articles": "https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&trafcat=infinite&u=https%3A%2F%2Finfinite.tcgplayer.com%2Fsearch%3FcontentMode%3Darticle%26game%3Dmagic%26partner%3Dscryfall%26q%3DJace%252C%2BVryn%2527s%2BProdigy%2B%252F%252F%2BJace%252C%2BTelepath%2BUnbound",
+      "tcgplayer_infinite_decks": "https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&trafcat=infinite&u=https%3A%2F%2Finfinite.tcgplayer.com%2Fsearch%3FcontentMode%3Ddeck%26game%3Dmagic%26partner%3Dscryfall%26q%3DJace%252C%2BVryn%2527s%2BProdigy%2B%252F%252F%2BJace%252C%2BTelepath%2BUnbound",
+      "edhrec": "https://edhrec.com/route/?cc=Jace%2C+Vryn%27s+Prodigy"
+    },
+    "purchase_uris": {
+      "tcgplayer": "https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F100191%3Fpage%3D1",
+      "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Jace%2C+Vryn%27s+Prodigy&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+      "cardhoarder": "https://www.cardhoarder.com/cards/57880?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
+    }
+  }
+  
