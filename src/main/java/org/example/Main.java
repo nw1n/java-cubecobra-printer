@@ -14,7 +14,7 @@ public class Main {
         initFullCardsFromJsonFiles();
         downloadImages();
         createPdfs();
-        keepConsoleOpen();
+        keepConsoleOpenIfNeeded(args);
     }
 
     private static void initSetup(String[] args) throws IOException, InterruptedException {
@@ -63,7 +63,10 @@ public class Main {
         PdfCreator.createPdfs();
     }
 
-    private static void keepConsoleOpen() throws IOException {
+    private static void keepConsoleOpenIfNeeded(String[] args) throws IOException {
+        if (args.length > 0){
+            return;
+        }
         System.out.println("\n" + "Press Enter to exit.");
         System.in.read();
     }
