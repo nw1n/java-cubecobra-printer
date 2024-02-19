@@ -30,7 +30,8 @@ public class PdfCreator {
         Files.deleteIfExists(Path.of(Config.getInstance().getPdfOneSidedLocalPath()));
         Files.deleteIfExists(Path.of(Config.getInstance().getPdfTwoSidedLocalPath()));
         // create pdfs
-        createOneSidedCardsPdf();
+        //createOneSidedCardsPdf();
+        createAllOneSidedCardsPdfChunks();
         createTwoSidedCardsPdf();
         System.out.println("Finished Creating PDFs.");
         System.out.println("PDF one-sided-cards page count: " + getNumberOfPages(Config.getInstance().getPdfOneSidedLocalPath()));
@@ -86,6 +87,50 @@ public class PdfCreator {
         System.out.println("The PDFs are located in the following folder:");
         System.out.println(Config.getInstance().getPdfFolder());
         return true;
+    }
+
+    public static void createAllOneSidedCardsPdfChunks() throws IOException, CsvException {
+        CardsManager cardsManager = CardsManager.getInstance();
+        ArrayList<Card> cards = cardsManager.getCards();
+        int chunkSize = 1;
+        int chunkCount = (int) Math.ceil((double) cards.size() / chunkSize);
+        System.out.println("Creating " + chunkCount + " one sided PDF chunks...");
+        for (int i = 1; i <= chunkCount; i++) {
+            int start = (i - 1) * chunkSize;
+            int end = Math.min(cards.size(), start + chunkSize);
+            ArrayList<Card> cardsChunk = new ArrayList<>(cards.subList(start, end));
+            createOneSidedCardsPdfChunk(i, cardsChunk);
+        }
+        System.out.println("Finished creating one sided PDF chunks.");
+    }
+
+
+    private static void createOneSidedCardsPdfChunk(int Index, ArrayList<Card> cardsChunk) throws IOException {
+        System.out.println("Creating PDF chunk...");
+        CardsManager cardsManager = CardsManager.getInstance();
+        PDDocument document = new PDDocument();
+        Card firstCard = cardsManager.getCards().get(0);
+        System.out.println("Using first image " + firstCard.getLocalFrontImageFilePath() + " for PDF Dimensions");
+        PDImageXObject pdImageFirst = PDImageXObject.createFromFile(firstCard.getLocalFrontImageFilePath(), document);
+        float imageWidth = pdImageFirst.getWidth();
+        float imageHeight = pdImageFirst.getHeight();
+
+        ArrayList<Card> oneSidedCards = cardsChunk;
+
+        if(oneSidedCards.size() == 0) {
+            System.out.println("No one sided cards to add to PDF Chunk. Skipping creation of one sided PDF.");
+            document.close();
+            return;
+        }
+
+        for (int i = 0; i < oneSidedCards.size(); i++) {
+            Card currentCard = oneSidedCards.get(i);
+            addImagePageToPdf(document, currentCard.getLocalFrontImageFilePath(), imageWidth, imageHeight);
+        }
+
+        document.save(Config.getInstance().getPdfOneSidedLocalPath().replace(".pdf", "_" + Index + ".pdf"));
+        document.close();
+        System.out.println("Succesfully Created one sided PDF Chunk.");
     }
 
     private static void createOneSidedCardsPdf() throws IOException {
