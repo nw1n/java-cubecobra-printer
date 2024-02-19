@@ -95,7 +95,7 @@ public class PdfCreator {
 
     public static void createAllOneSidedCardsPdfChunks() throws IOException, CsvException {
         CardsManager cardsManager = CardsManager.getInstance();
-        ArrayList<Card> cards = cardsManager.getCards();
+        ArrayList<Card> cards = cardsManager.getOneSidedCards();
         if(cards.size() == 0) {
             System.out.println("No cards to add to PDF. Skipping creation of one sided PDF.");
             return;
