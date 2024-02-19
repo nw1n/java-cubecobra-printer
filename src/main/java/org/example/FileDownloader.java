@@ -48,7 +48,7 @@ public class FileDownloader {
 
         // Desired border width in pixels
         int borderWidth = 24;
-        int triangleSize = 72;
+        int triangleSize = 80;
         Color borderColor = new Color(24, 21, 16, 255);
 
         // Create a new BufferedImage with increased dimensions to accommodate the border
