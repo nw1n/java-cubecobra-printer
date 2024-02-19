@@ -30,8 +30,8 @@ public class PdfCreator {
         Files.deleteIfExists(Path.of(Config.getInstance().getPdfOneSidedLocalPath()));
         Files.deleteIfExists(Path.of(Config.getInstance().getPdfTwoSidedLocalPath()));
         // create pdfs
-        creatOneSidedCardsPdf();
-        creatTwoSidedCardsPdf();
+        createOneSidedCardsPdf();
+        createTwoSidedCardsPdf();
         System.out.println("Finished Creating PDFs.");
         System.out.println("PDF one-sided-cards page count: " + getNumberOfPages(Config.getInstance().getPdfOneSidedLocalPath()));
         System.out.println("PDF two-sided-cards page count: " + getNumberOfPages(Config.getInstance().getPdfTwoSidedLocalPath()));
@@ -88,7 +88,7 @@ public class PdfCreator {
         return true;
     }
 
-    private static void creatOneSidedCardsPdf() throws IOException {
+    private static void createOneSidedCardsPdf() throws IOException {
         System.out.println("Creating one sided PDF...");
         CardsManager cardsManager = CardsManager.getInstance();
         PDDocument document = new PDDocument();
@@ -116,7 +116,7 @@ public class PdfCreator {
         System.out.println("Succesfully Created one sided PDF.");
     }
 
-    private static void creatTwoSidedCardsPdf() throws IOException {
+    private static void createTwoSidedCardsPdf() throws IOException {
         System.out.println("Creating two sided PDF...");
         CardsManager cardsManager = CardsManager.getInstance();
 
