@@ -35,59 +35,33 @@ public class FileDownloader {
             return;
             //throw new IllegalArgumentException("Only jpg and png files are supported.");
         }
-        // add borders and triangles to image
+        // add triangles to image
         try {
             // Load the image
             File imageFile = new File(localFilePath);
             BufferedImage originalImage = ImageIO.read(imageFile);
 
-            // Desired border width in pixels
-            int borderWidth = 10;
+            // Create a graphics object to draw on the original image
+            Graphics2D g2d = originalImage.createGraphics();
 
-            // Create a new BufferedImage with increased dimensions to accommodate the border
-            int newWidth = originalImage.getWidth() + 2 * borderWidth;
-            int newHeight = originalImage.getHeight() + 2 * borderWidth;
-            BufferedImage borderedAndTriangleImage = new BufferedImage(newWidth, newHeight, originalImage.getType());
-
-            // Create graphics object to draw on the bordered image
-            Graphics2D g2d = borderedAndTriangleImage.createGraphics();
-
-            // Set the background color (in this case, white)
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect(0, 0, newWidth, newHeight);
-
-            // Draw the original image onto the bordered image with an offset to account for the border
-            int x = borderWidth;
-            int y = borderWidth;
-            g2d.drawImage(originalImage, x, y, null);
-
-            // Set the color of the border (in this case, black)
+            // Set the color of the triangles (in this case, black)
             g2d.setColor(Color.BLACK);
-
-            // Draw the top border
-            g2d.fillRect(0, 0, newWidth, borderWidth);
-            // Draw the bottom border
-            g2d.fillRect(0, newHeight - borderWidth, newWidth, borderWidth);
-            // Draw the left border
-            g2d.fillRect(0, borderWidth, borderWidth, originalImage.getHeight());
-            // Draw the right border
-            g2d.fillRect(newWidth - borderWidth, borderWidth, borderWidth, originalImage.getHeight());
 
             // Draw triangles at each corner
             int triangleSize = 80; // Size of the triangles
             g2d.fillPolygon(new int[]{0, triangleSize, 0}, new int[]{0, 0, triangleSize}, 3); // Top-left corner
-            g2d.fillPolygon(new int[]{newWidth - triangleSize, newWidth, newWidth}, new int[]{0, 0, triangleSize}, 3); // Top-right corner
-            g2d.fillPolygon(new int[]{0, triangleSize, 0}, new int[]{newHeight, newHeight, newHeight - triangleSize}, 3); // Bottom-left corner
-            g2d.fillPolygon(new int[]{newWidth - triangleSize, newWidth, newWidth}, new int[]{newHeight, newHeight, newHeight - triangleSize}, 3); // Bottom-right corner
+            g2d.fillPolygon(new int[]{originalImage.getWidth() - triangleSize, originalImage.getWidth(), originalImage.getWidth()}, new int[]{0, 0, triangleSize}, 3); // Top-right corner
+            g2d.fillPolygon(new int[]{0, triangleSize, 0}, new int[]{originalImage.getHeight(), originalImage.getHeight(), originalImage.getHeight() - triangleSize}, 3); // Bottom-left corner
+            g2d.fillPolygon(new int[]{originalImage.getWidth() - triangleSize, originalImage.getWidth(), originalImage.getWidth()}, new int[]{originalImage.getHeight(), originalImage.getHeight(), originalImage.getHeight() - triangleSize}, 3); // Bottom-right corner
 
             // Dispose of the graphics object to free up resources
             g2d.dispose();
 
-            // Save the bordered image
-            File outputFile = new File(localFilePath.replace(".png", "_bordered_triangles.png"));
-            ImageIO.write(borderedAndTriangleImage, "png", outputFile);
+            // Save the image with triangles
+            File outputFile = new File(localFilePath.replace(".png", "_triangles.png"));
+            ImageIO.write(originalImage, "png", outputFile);
 
-            System.out.println("Border and triangles added successfully!");
+            System.out.println("Triangles added successfully!");
         } catch (IOException e) {
             e.printStackTrace();
         }
