@@ -35,7 +35,7 @@ public class FileDownloader {
             return;
             //throw new IllegalArgumentException("Only jpg and png files are supported.");
         }
-        // add borders to image
+        // add borders and triangles to image
         try {
             // Load the image
             File imageFile = new File(localFilePath);
@@ -47,10 +47,10 @@ public class FileDownloader {
             // Create a new BufferedImage with increased dimensions to accommodate the border
             int newWidth = originalImage.getWidth() + 2 * borderWidth;
             int newHeight = originalImage.getHeight() + 2 * borderWidth;
-            BufferedImage borderedImage = new BufferedImage(newWidth, newHeight, originalImage.getType());
+            BufferedImage borderedAndTriangleImage = new BufferedImage(newWidth, newHeight, originalImage.getType());
 
             // Create graphics object to draw on the bordered image
-            Graphics2D g2d = borderedImage.createGraphics();
+            Graphics2D g2d = borderedAndTriangleImage.createGraphics();
 
             // Set the background color (in this case, white)
             g2d.setColor(Color.WHITE);
@@ -73,14 +73,21 @@ public class FileDownloader {
             // Draw the right border
             g2d.fillRect(newWidth - borderWidth, borderWidth, borderWidth, originalImage.getHeight());
 
+            // Draw triangles at each corner
+            int triangleSize = 80; // Size of the triangles
+            g2d.fillPolygon(new int[]{0, triangleSize, 0}, new int[]{0, 0, triangleSize}, 3); // Top-left corner
+            g2d.fillPolygon(new int[]{newWidth - triangleSize, newWidth, newWidth}, new int[]{0, 0, triangleSize}, 3); // Top-right corner
+            g2d.fillPolygon(new int[]{0, triangleSize, 0}, new int[]{newHeight, newHeight, newHeight - triangleSize}, 3); // Bottom-left corner
+            g2d.fillPolygon(new int[]{newWidth - triangleSize, newWidth, newWidth}, new int[]{newHeight, newHeight, newHeight - triangleSize}, 3); // Bottom-right corner
+
             // Dispose of the graphics object to free up resources
             g2d.dispose();
 
             // Save the bordered image
-            File outputFile = new File(localFilePath.replace(".png", "_bordered.png"));
-            ImageIO.write(borderedImage, "png", outputFile);
+            File outputFile = new File(localFilePath.replace(".png", "_bordered_triangles.png"));
+            ImageIO.write(borderedAndTriangleImage, "png", outputFile);
 
-            System.out.println("Border added successfully!");
+            System.out.println("Border and triangles added successfully!");
         } catch (IOException e) {
             e.printStackTrace();
         }
