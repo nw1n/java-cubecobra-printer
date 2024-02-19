@@ -1,6 +1,5 @@
 package org.example;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -110,9 +109,9 @@ public class PdfCreator {
         for (int i = 0; i < oneSidedCards.size(); i++) {
             Card currentCard = oneSidedCards.get(i);
             addImagePageToPdf(document, currentCard.getLocalFrontImageFilePath(), imageWidth, imageHeight);
-            document.saveIncremental(new FileOutputStream(Config.getInstance().getPdfOneSidedLocalPath()));
-            document.getPage(document.getNumberOfPages() - 1).getCOSObject().clear();
         }
+
+        document.save(Config.getInstance().getPdfOneSidedLocalPath());
         document.close();
         System.out.println("Succesfully Created one sided PDF.");
     }
