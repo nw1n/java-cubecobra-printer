@@ -58,7 +58,7 @@ public class FileDownloader {
             g2d.dispose();
 
             // Save the image with triangles
-            File outputFile = new File(localFilePath.replace(".png", "_triangles.png"));
+            File outputFile = new File(localFilePath.replace(".png", "_bordered.png"));
             ImageIO.write(originalImage, "png", outputFile);
 
             System.out.println("Triangles added successfully!");
