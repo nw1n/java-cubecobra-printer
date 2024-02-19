@@ -29,7 +29,7 @@ public class FileDownloader {
         Path pathVar = Path.of(localFilePath);
         if (Files.exists(pathVar)) {
             System.out.println("File already exists: " + localFilePath);
-            addBordersToImage(localFilePath); // tmp
+            //addBordersToImage(localFilePath); // tmp
             return;
         }
         downloadFile(fileURL, localFilePath);
@@ -93,7 +93,7 @@ public class FileDownloader {
         g2d.dispose();
 
         // Save the image with borders and triangles
-        File outputFile = new File(localFilePath.replace(".png", "_bordered_triangles.png"));
+        File outputFile = new File(localFilePath);
         ImageIO.write(borderedImage, "png", outputFile);
 
         System.out.println("Borders and triangles added successfully!");
