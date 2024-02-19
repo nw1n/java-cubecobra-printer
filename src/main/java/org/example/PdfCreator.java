@@ -1,5 +1,6 @@
 package org.example;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -99,7 +100,7 @@ public class PdfCreator {
             System.out.println("No cards to add to PDF. Skipping creation of one sided PDF.");
             return;
         }
-        int chunkSize = 50;
+        int chunkSize = 1;
         int chunkCount = (int) Math.ceil((double) cards.size() / chunkSize);
         System.out.println("Creating " + chunkCount + " one sided PDF chunks...");
         ArrayList <String> pdfPaths = new ArrayList<>();
@@ -116,22 +117,25 @@ public class PdfCreator {
 
     private static void mergeOneSidedPdfChunks(ArrayList<String> pdfPaths) throws IOException {
         PDFMergerUtility pdfMerger = new PDFMergerUtility();
-        for (String pdfPath : pdfPaths) {
-            pdfMerger.addSource(new File(pdfPath));
-        }
         pdfMerger.setDestinationFileName(Config.getInstance().getPdfOneSidedLocalPath());
 
-        try {
-            pdfMerger.mergeDocuments(null);
-        } catch (IOException e) {
-            e.printStackTrace();
+        PDDocument document = new PDDocument();
+        document.save(Config.getInstance().getPdfOneSidedLocalPath());
+
+        for (String pdfPath : pdfPaths) {
+            PDDocument documentToAdd = Loader.loadPDF(new File(pdfPath));
+            pdfMerger.appendDocument(document, documentToAdd);
+            documentToAdd.close();
+            document.save(Config.getInstance().getPdfOneSidedLocalPath());
         }
+        document.close();
+
         System.out.println("Succesfully Merged one sided PDF Chunks.");
 
         System.out.println("Deleting one sided PDF Chunks...");
         for (String pdfPath : pdfPaths) {
             System.out.println("Deleting " + pdfPath);
-            Files.deleteIfExists(Path.of(pdfPath));
+            //Files.deleteIfExists(Path.of(pdfPath));
         }
         System.out.println("Succesfully Deleted one sided PDF Chunks.");
     }
