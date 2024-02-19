@@ -100,7 +100,7 @@ public class PdfCreator {
             System.out.println("No cards to add to PDF. Skipping creation of one sided PDF.");
             return;
         }
-        int chunkSize = 1;
+        int chunkSize = 50;
         int chunkCount = (int) Math.ceil((double) cards.size() / chunkSize);
         System.out.println("Creating " + chunkCount + " one sided PDF chunks...");
         ArrayList <String> pdfPaths = new ArrayList<>();
@@ -135,7 +135,7 @@ public class PdfCreator {
         System.out.println("Deleting one sided PDF Chunks...");
         for (String pdfPath : pdfPaths) {
             System.out.println("Deleting " + pdfPath);
-            //Files.deleteIfExists(Path.of(pdfPath));
+            Files.deleteIfExists(Path.of(pdfPath));
         }
         System.out.println("Succesfully Deleted one sided PDF Chunks.");
     }
