@@ -95,7 +95,11 @@ public class PdfCreator {
     public static void createAllOneSidedCardsPdfChunks() throws IOException, CsvException {
         CardsManager cardsManager = CardsManager.getInstance();
         ArrayList<Card> cards = cardsManager.getCards();
-        int chunkSize = 1;
+        if(cards.size() == 0) {
+            System.out.println("No cards to add to PDF. Skipping creation of one sided PDF.");
+            return;
+        }
+        int chunkSize = 50;
         int chunkCount = (int) Math.ceil((double) cards.size() / chunkSize);
         System.out.println("Creating " + chunkCount + " one sided PDF chunks...");
         ArrayList <String> pdfPaths = new ArrayList<>();
