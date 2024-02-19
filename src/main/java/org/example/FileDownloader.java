@@ -45,7 +45,7 @@ public class FileDownloader {
             Graphics2D g2d = originalImage.createGraphics();
 
             // Set the color of the triangles (in this case, black)
-            g2d.setColor(Color.BLACK);
+            g2d.setColor(new Color(24, 21, 16, 255));
 
             // Draw triangles at each corner
             int triangleSize = 80; // Size of the triangles
