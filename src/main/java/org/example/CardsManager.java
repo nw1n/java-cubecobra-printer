@@ -38,12 +38,12 @@ public class CardsManager {
         throw new InterruptedException("Download json failed. Not all json files downloaded.");
     }
 
-    public void downloadCardImages() throws InterruptedException {
+    public void downloadCardImages() throws InterruptedException, IOException {
         for(int i = 0; i < 10; i++) {
             for (Card card : cards) {
-                FileDownloader.downloadFileIfNotExists(card.getFrontImageUrl(), card.getLocalFrontImageFilePath());
+                FileDownloader.downloadFileIfNotExistsAndDrawBorder(card.getFrontImageUrl(), card.getLocalFrontImageFilePath());
                 if(card.getIsFlipCard()) {
-                    FileDownloader.downloadFileIfNotExists(card.getBackImageUrl(), card.getLocalBackImageFilePath());
+                    FileDownloader.downloadFileIfNotExistsAndDrawBorder(card.getBackImageUrl(), card.getLocalBackImageFilePath());
                 }
             }
             if(isAllCardsImagesExist()) {
