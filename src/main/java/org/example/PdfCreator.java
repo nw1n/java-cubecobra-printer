@@ -46,8 +46,8 @@ public class PdfCreator {
 
         System.out.println("Init Creating PDFs...");
         // create pdfs
-        //createOneSidedCardsPdf();
-        createAllOneSidedCardsPdfChunks();
+        createOneSidedCardsPdf();
+        //createAllOneSidedCardsPdfChunks();
         createTwoSidedCardsPdf();
         System.out.println("Finished Creating PDFs.");
         System.out.println("PDF one-sided-cards page count: " + getNumberOfPages(Config.getInstance().getPdfOneSidedLocalPath()));
@@ -181,6 +181,34 @@ public class PdfCreator {
         document.save(pdfPath);
         document.close();
         System.out.println("Succesfully Created one sided PDF Chunk.");
+    }
+
+    private static void createOneSidedCardsPdf() throws IOException {
+        System.out.println("Creating one sided PDF...");
+        CardsManager cardsManager = CardsManager.getInstance();
+        PDDocument document = new PDDocument();
+        Card firstCard = cardsManager.getCards().get(0);
+        System.out.println("Using first image " + firstCard.getLocalFrontImageFilePath() + " for PDF Dimensions");
+        PDImageXObject pdImageFirst = PDImageXObject.createFromFile(firstCard.getLocalFrontImageFilePath(), document);
+        float imageWidth = pdImageFirst.getWidth();
+        float imageHeight = pdImageFirst.getHeight();
+
+        ArrayList<Card> oneSidedCards = cardsManager.getOneSidedCards();
+
+        if(oneSidedCards.size() == 0) {
+            System.out.println("No one sided cards to add to PDF. Skipping creation of one sided PDF.");
+            document.close();
+            return;
+        }
+
+        for (int i = 0; i < oneSidedCards.size(); i++) {
+            Card currentCard = oneSidedCards.get(i);
+            addImagePageToPdf(document, currentCard.getLocalFrontImageFilePath(), imageWidth, imageHeight);
+        }
+
+        document.save(Config.getInstance().getPdfOneSidedLocalPath());
+        document.close();
+        System.out.println("Succesfully Created one sided PDF.");
     }
 
     private static void createTwoSidedCardsPdf() throws IOException {
