@@ -53,7 +53,7 @@ public class PdfCreator {
         } else {
             System.out.println("Chunk mode is disabled. Init PDF creation...");
             // create pdfs
-            createOneSidedCardsPdf();
+            createFullPdf();
             //createAllOneSidedCardsPdfChunks();
             createTwoSidedCardsPdf();
             System.out.println("Finished Creating PDFs.");
@@ -165,32 +165,9 @@ public class PdfCreator {
         System.out.println("Succesfully Created one sided PDF Chunk.");
     }
 
-    private static void mergeOneSidedPdfChunks(ArrayList<String> pdfPaths) throws IOException {
-        PDFMergerUtility pdfMerger = new PDFMergerUtility();
-        pdfMerger.setDestinationFileName(Config.getInstance().getPdfOneSidedLocalPath());
-
-        PDDocument document = new PDDocument();
-        document.save(Config.getInstance().getPdfOneSidedLocalPath());
-
-        for (String pdfPath : pdfPaths) {
-            PDDocument documentToAdd = Loader.loadPDF(new File(pdfPath));
-            pdfMerger.appendDocument(document, documentToAdd);
-            documentToAdd.close();
-            document.save(Config.getInstance().getPdfOneSidedLocalPath());
-        }
-        document.close();
-
-        System.out.println("Succesfully Merged one sided PDF Chunks.");
-
-        System.out.println("Deleting one sided PDF Chunks...");
-        for (String pdfPath : pdfPaths) {
-            System.out.println("Deleting " + pdfPath);
-            Files.deleteIfExists(Path.of(pdfPath));
-        }
-        System.out.println("Succesfully Deleted one sided PDF Chunks.");
-    }
-
-    private static void createOneSidedCardsPdf() throws IOException {
+    private static void createFullPdf(String mode) throws IOException {
+        boolean isTwoSidedMode = mode.equals("two-sided");
+        String pdfPath = isTwoSidedMode ? Config.getInstance().getPdfTwoSidedLocalPath() : Config.getInstance().getPdfOneSidedLocalPath();
         System.out.println("Creating one sided PDF...");
         CardsManager cardsManager = CardsManager.getInstance();
         PDDocument document = new PDDocument();
@@ -200,20 +177,23 @@ public class PdfCreator {
         float imageWidth = pdImageFirst.getWidth();
         float imageHeight = pdImageFirst.getHeight();
 
-        ArrayList<Card> oneSidedCards = cardsManager.getOneSidedCards();
+        ArrayList<Card> cardsList = cardsManager.getOneSidedCards();
 
-        if(oneSidedCards.size() == 0) {
+        if(cardsList.size() == 0) {
             System.out.println("No one sided cards to add to PDF. Skipping creation of one sided PDF.");
             document.close();
             return;
         }
 
-        for (int i = 0; i < oneSidedCards.size(); i++) {
-            Card currentCard = oneSidedCards.get(i);
+        for (int i = 0; i < cardsList.size(); i++) {
+            Card currentCard = cardsList.get(i);
             addImagePageToPdf(document, currentCard.getLocalFrontImageFilePath(), imageWidth, imageHeight);
+            if(isTwoSidedMode) {
+                addImagePageToPdf(document, currentCard.getLocalBackImageFilePath(), imageWidth, imageHeight);
+            }
         }
 
-        document.save(Config.getInstance().getPdfOneSidedLocalPath());
+        document.save(pdfPath);
         document.close();
         System.out.println("Succesfully Created one sided PDF.");
     }
