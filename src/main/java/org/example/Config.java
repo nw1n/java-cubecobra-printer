@@ -10,7 +10,6 @@ public class Config {
     // Private constructor to prevent instantiation
     private Config() {
         this.useTestTmpFolder();
-        //this.csvUrl = "https://cubecobra.com/cube/download/csv/tol_up360";
         this.csvUrl = "https://cubecobra.com/cube/download/csv/398e6e50-d585-43e0-ad97-6e4609da5e76";
     }
 
