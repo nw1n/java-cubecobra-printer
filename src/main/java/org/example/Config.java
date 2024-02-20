@@ -5,6 +5,7 @@ public class Config {
     private static volatile Config instance;
     private String tmpFolder;
     private String csvUrl;
+    private int pdfChunkSize = 0;
 
     // Private constructor to prevent instantiation
     private Config() {
@@ -16,6 +17,9 @@ public class Config {
     public void setArgs(String[] args) {
         if(args.length > 0) {
             this.setCsvUrlRaw(args[0]);
+        }
+        if(args.length > 1) {
+            this.setPdfChunkSize(Integer.parseInt(args[1]));
         }
     }
 
@@ -67,6 +71,14 @@ public class Config {
         return this.tmpFolder + "pdf/";
     }
 
+    public String getChunkedOneSidedPdfFolder() {
+        return this.getPdfFolder() + "chunked-one-sided/";
+    }
+
+    public String getChunkedTwoSidedPdfFolder() {
+        return this.getPdfFolder() + "chunked-two-sided/";
+    }
+
     public String getCsvFolder() {
         return this.tmpFolder + "csv/";
     }
@@ -89,5 +101,18 @@ public class Config {
             }
         }
         return instance;
+    }
+
+    public int getPdfChunkSize() {
+        return this.pdfChunkSize;
+    }
+
+    public Config setPdfChunkSize(int pdfChunkSize) {
+        this.pdfChunkSize = pdfChunkSize;
+        return this;
+    }
+
+    public Boolean getIsChunkMode() {
+        return this.pdfChunkSize > 0;
     }
 }
