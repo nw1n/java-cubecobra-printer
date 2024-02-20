@@ -28,10 +28,23 @@ public class PdfCreator {
             System.out.println("No cards to add to PDFs. Skipping creation of PDFs.");
             return;
         }
+
+        Boolean isDeletePdfsMode  = true;
+
+        if(isDeletePdfsMode) {
+            // delete pdf folder and all its content
+            File pdfFolder = new File(Config.getInstance().getPdfFolder());
+            if(pdfFolder.exists()) {
+                System.out.println("Deleting PDF folder and all its content...");
+                Util.deleteFolderRecursively(Config.getInstance().getPdfFolder());
+                System.out.println("Succesfully Deleted PDF folder and all its content.");
+                // recreate pdf folder
+                Util.createFolder(Config.getInstance().getPdfFolder());
+                System.out.println("Recreated PDF folder.");
+            }
+        }
+
         System.out.println("Init Creating PDFs...");
-        System.out.println("Deleting old PDFs...");
-        Files.deleteIfExists(Path.of(Config.getInstance().getPdfOneSidedLocalPath()));
-        Files.deleteIfExists(Path.of(Config.getInstance().getPdfTwoSidedLocalPath()));
         // create pdfs
         //createOneSidedCardsPdf();
         createAllOneSidedCardsPdfChunks();

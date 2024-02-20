@@ -1,6 +1,9 @@
 package org.example;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Util {
     public static void createProjectFolders() {
@@ -27,6 +30,22 @@ public class Util {
             }
         } else {
             System.out.println("Folder already exists.");
+        }
+    }
+
+    public static void deleteFolderRecursively(String folderStr) throws IOException {
+        Path folder = Path.of(folderStr);
+        if (Files.exists(folder)) {
+            Files.walk(folder)
+                 .sorted((a, b) -> -a.compareTo(b))
+                 .forEach(path -> {
+                     try {
+                         Files.delete(path);
+                     } catch (IOException e) {
+                         System.err.println("Failed to delete: " + path);
+                         e.printStackTrace();
+                     }
+                 });
         }
     }
 
