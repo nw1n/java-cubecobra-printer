@@ -60,25 +60,37 @@ public class PdfCreator {
 
     public static void createPdfChunks(String mode) throws IOException, CsvException {
         boolean isTwoSidedMode = mode.equals("two-sided");
-        Util.createFolder(Config.getInstance().getChunkedOneSidedPdfFolder());
+        boolean isOneSidedMode = isTwoSidedMode ? false : true;
         CardsManager cardsManager = CardsManager.getInstance();
-        ArrayList<Card> cards = cardsManager.getOneSidedCards();
+        ArrayList<Card> cards = isTwoSidedMode ? cardsManager.getTwoSidedCards() : cardsManager.getOneSidedCards();
+
+        if(isOneSidedMode) {
+            Util.createFolder(Config.getInstance().getChunkedOneSidedPdfFolder());
+        } else {
+            Util.createFolder(Config.getInstance().getChunkedTwoSidedPdfFolder());
+        }
+        
         if(cards.size() == 0) {
             System.out.println("No cards to add to PDF. Skipping creation of one sided PDF.");
             return;
         }
+
         int chunkSize = Config.getInstance().getPdfChunkSize();
+
         int chunkCount = (int) Math.ceil((double) cards.size() / chunkSize);
+
         System.out.println("Creating " + chunkCount + " one sided PDF chunks...");
+
         ArrayList <String> pdfPaths = new ArrayList<>();
+
         for (int i = 1; i <= chunkCount; i++) {
             int start = (i - 1) * chunkSize;
             int end = Math.min(cards.size(), start + chunkSize);
             ArrayList<Card> cardsChunk = new ArrayList<>(cards.subList(start, end));
             createOneSidedCardsPdfChunk(i, cardsChunk, pdfPaths);
         }
+        
         System.out.println("Finished creating one sided PDF chunks.");
-        //mergeOneSidedPdfChunks(pdfPaths);
     }
 
     private static void createOneSidedCardsPdfChunk(int Index, ArrayList<Card> cardsChunk, ArrayList <String> pdfPaths) throws IOException {
