@@ -132,7 +132,6 @@ public class PdfCreator {
             createOneSidedCardsPdfChunk(i, cardsChunk, pdfPaths);
         }
         System.out.println("Finished creating one sided PDF chunks.");
-        System.out.println("Merging one sided PDF chunks...");
         //mergeOneSidedPdfChunks(pdfPaths);
     }
 
