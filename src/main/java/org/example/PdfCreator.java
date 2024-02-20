@@ -24,20 +24,7 @@ public class PdfCreator {
             return;
         }
 
-        Boolean isDeletePdfsMode  = true;
-
-        if(isDeletePdfsMode) {
-            // delete pdf folder and all its content
-            File pdfFolder = new File(Config.getInstance().getPdfFolder());
-            if(pdfFolder.exists()) {
-                System.out.println("Deleting PDF folder and all its content...");
-                Util.deleteFolderRecursively(Config.getInstance().getPdfFolder());
-                System.out.println("Succesfully Deleted PDF folder and all its content.");
-                // recreate pdf folder
-                Util.createFolder(Config.getInstance().getPdfFolder());
-                System.out.println("Recreated PDF folder.");
-            }
-        }
+        deleteAndRecreatePdfFolder();
 
         System.out.println("Init Creating PDFs...");
         if(Config.getInstance().getIsChunkMode()) {
@@ -221,6 +208,19 @@ public class PdfCreator {
         } catch (IOException e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    private static void deleteAndRecreatePdfFolder() throws IOException {
+        // delete pdf folder and all its content
+        File pdfFolder = new File(Config.getInstance().getPdfFolder());
+        if(pdfFolder.exists()) {
+            System.out.println("Deleting PDF folder and all its content...");
+            Util.deleteFolderRecursively(Config.getInstance().getPdfFolder());
+            System.out.println("Succesfully Deleted PDF folder and all its content.");
+            // recreate pdf folder
+            Util.createFolder(Config.getInstance().getPdfFolder());
+            System.out.println("Recreated PDF folder.");
         }
     }
 }
