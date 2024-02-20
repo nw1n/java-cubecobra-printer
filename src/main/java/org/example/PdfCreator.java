@@ -42,9 +42,9 @@ public class PdfCreator {
         System.out.println("Init Creating PDFs...");
         if(Config.getInstance().getIsChunkMode()) {
             System.out.println("Chunk mode is enabled. Init PDF chunk creation...");
-            // create one sided pdf folder
             createPdfChunks("one-sided");
-            return;
+            createPdfChunks("two-sided");
+            System.out.println("Finished Creating PDF chunks.");
         } else {
             System.out.println("Chunk mode is disabled. Init PDF creation...");
             // create pdfs
@@ -87,40 +87,45 @@ public class PdfCreator {
             int start = (i - 1) * chunkSize;
             int end = Math.min(cards.size(), start + chunkSize);
             ArrayList<Card> cardsChunk = new ArrayList<>(cards.subList(start, end));
-            createOneSidedCardsPdfChunk(i, cardsChunk, pdfPaths);
+            createCardsPdfChunk(mode, i, cardsChunk, pdfPaths);
         }
-        
+
         System.out.println("Finished creating one sided PDF chunks.");
     }
 
-    private static void createOneSidedCardsPdfChunk(int Index, ArrayList<Card> cardsChunk, ArrayList <String> pdfPaths) throws IOException {
-        System.out.println("Creating PDF chunk...");
+    private static void createCardsPdfChunk(String mode, int Index, ArrayList<Card> cardsChunk, ArrayList <String> pdfPaths) throws IOException {
+        if(cardsChunk.size() == 0) {
+            System.out.println("No one cards to add to PDF Chunk. Skipping creation of new pdf chunk.");
+            return;
+        }
+
+        boolean isTwoSidedMode = mode.equals("two-sided");
+        //boolean isOneSidedMode = isTwoSidedMode ? false : true;
+
+        System.out.println("Creating PDF chunk for " + mode + " mode...");
         CardsManager cardsManager = CardsManager.getInstance();
         PDDocument document = new PDDocument();
+
         Card firstCard = cardsManager.getCards().get(0);
         System.out.println("Using first image " + firstCard.getLocalFrontImageFilePath() + " for PDF Dimensions");
         PDImageXObject pdImageFirst = PDImageXObject.createFromFile(firstCard.getLocalFrontImageFilePath(), document);
         float imageWidth = pdImageFirst.getWidth();
         float imageHeight = pdImageFirst.getHeight();
 
-        ArrayList<Card> oneSidedCards = cardsChunk;
-
-        if(oneSidedCards.size() == 0) {
-            System.out.println("No one sided cards to add to PDF Chunk. Skipping creation of one sided PDF.");
-            document.close();
-            return;
-        }
-
-        for (int i = 0; i < oneSidedCards.size(); i++) {
-            Card currentCard = oneSidedCards.get(i);
+        for (int i = 0; i < cardsChunk.size(); i++) {
+            Card currentCard = cardsChunk.get(i);
             addImagePageToPdf(document, currentCard.getLocalFrontImageFilePath(), imageWidth, imageHeight);
+            if(isTwoSidedMode) {
+                addImagePageToPdf(document, currentCard.getLocalBackImageFilePath(), imageWidth, imageHeight);
+            }
         }
 
-        String pdfPath = Config.getInstance().getChunkedOneSidedPdfFolder() + "chunk-" + Index + ".pdf";
+        String baseFolder = isTwoSidedMode ? Config.getInstance().getChunkedTwoSidedPdfFolder() : Config.getInstance().getChunkedOneSidedPdfFolder();
+        String pdfPath = baseFolder + "chunk-" + Index + ".pdf";
         pdfPaths.add(pdfPath);
         document.save(pdfPath);
         document.close();
-        System.out.println("Succesfully Created one sided PDF Chunk.");
+        System.out.println("Succesfully Created PDF Chunk " + Index + " for " + mode + " mode.");
     }
 
     private static void addImagePageToPdf(PDDocument document, String imagePath, float imageWidth, float imageHeight) throws IOException {
