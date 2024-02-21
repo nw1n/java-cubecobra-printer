@@ -15,8 +15,12 @@ import java.awt.image.BufferedImage;
 
 
 public class FileDownloader {
+    public static String replaceScryfallSpecialChars(String strArg) {
+        return strArg.replace("★", "x");
+    }
+
     public static void downloadFileIfNotExists(String fileURL, String localFilePath) throws InterruptedException {
-        Path pathVar = Path.of(localFilePath);
+        Path pathVar = Path.of(replaceScryfallSpecialChars(localFilePath));
         if (Files.exists(pathVar)) {
             System.out.println("File already exists: " + localFilePath);
             return;
@@ -25,7 +29,7 @@ public class FileDownloader {
     }
 
     public static void downloadFileIfNotExistsAndDrawBorder(String fileURL, String localFilePath) throws InterruptedException, IOException {
-        Path pathVar = Path.of(localFilePath);
+        Path pathVar = Path.of(replaceScryfallSpecialChars(localFilePath));
         if (Files.exists(pathVar)) {
             System.out.println("File already exists: " + localFilePath);
             //addBordersToImage(localFilePath); // tmp
