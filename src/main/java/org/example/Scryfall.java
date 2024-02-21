@@ -7,23 +7,30 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class Scryfall {
+    public static String replaceScryfallSpecialChars(String strArg) {
+        return strArg.replace("★", "x");
+    }
     public static String getCardUrl(String idOfSet, String idOfCard) {
         return "https://api.scryfall.com/cards/" + idOfSet + "/" + idOfCard;
     }
     public static String getLocalJsonFilePathFromIds(String idOfSet, String idOfCard) {
         String fileName = idOfSet + "__" + idOfCard + ".json";
+        fileName = replaceScryfallSpecialChars(fileName);
         return Config.getInstance().getCardJsonFolder() + fileName;
     }
     public static String getLocalJsonFilePathFromUrl(String url) {
         String fileName = url.replace("https://api.scryfall.com/cards/", "");
         fileName = fileName.replace("/", "__") + ".json";
+        fileName = replaceScryfallSpecialChars(fileName);
         return Config.getInstance().getCardJsonFolder() + fileName;
     }
     public static String getLocalFrontImageFilePathFromIds(String idOfSet, String idOfCard) {
+        idOfCard = replaceScryfallSpecialChars(idOfCard);
         String fileName = idOfSet + "__" + idOfCard + ".png";
         return Config.getInstance().getCardImgFolder() + fileName;
     }
     public static String getLocalBackImageFilePathFromIds(String idOfSet, String idOfCard) {
+        idOfCard = replaceScryfallSpecialChars(idOfCard);
         String fileName = idOfSet + "__" + idOfCard + "--back.png";
         return Config.getInstance().getCardImgFolder() + fileName;
     }
