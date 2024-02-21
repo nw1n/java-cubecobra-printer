@@ -8,8 +8,7 @@ import org.json.JSONTokener;
 
 public class Scryfall {
     public static String replaceScryfallSpecialChars(String strArg) {
-        // replace any character that is not a letter or a number with an x
-        return strArg.replaceAll("[^a-zA-Z0-9]", "x");
+        return strArg.replace("★", "x");
     }
     public static String getCardUrl(String idOfSet, String idOfCard) {
         return "https://api.scryfall.com/cards/" + idOfSet + "/" + idOfCard;
